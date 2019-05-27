@@ -12,28 +12,31 @@ import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class DetailActivity extends AppCompatActivity {
     public static final String MOVIE_EXTRA = "MOVIE_EXTRA";
     private static final String LOG_TAG = DetailActivity.class.getSimpleName();
 
-    private TextView mTitleTextView;
-    private ImageView mPosterImageView;
-    private TextView mYearTextView;
-    private TextView mDateMonthTextView;
-    private TextView mRatingTextView;
-    private TextView mOverViewTextView;
+    @BindView(R.id.tv_title)
+    TextView mTitleTextView;
+    @BindView(R.id.imv_poster)
+    ImageView mPosterImageView;
+    @BindView(R.id.tv_year)
+    TextView mYearTextView;
+    @BindView(R.id.tv_date_month)
+    TextView mDateMonthTextView;
+    @BindView(R.id.tv_rating)
+    TextView mRatingTextView;
+    @BindView(R.id.tv_overview)
+    TextView mOverViewTextView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-
-        mTitleTextView = findViewById(R.id.tv_title);
-        mPosterImageView = findViewById(R.id.imv_poster);
-        mYearTextView = findViewById(R.id.tv_year);
-        mDateMonthTextView = findViewById(R.id.tv_date_month);
-        mRatingTextView = findViewById(R.id.tv_rating);
-        mOverViewTextView = findViewById(R.id.tv_overview);
+        ButterKnife.bind(this);
 
         Movie movie = getIntent().getParcelableExtra(MOVIE_EXTRA);
 
