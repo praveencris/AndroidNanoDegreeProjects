@@ -12,7 +12,7 @@ import java.util.Locale;
 public final class Utils {
     private static final String LOG_TAG = Utils.class.getSimpleName();
 
-    public static int calculateNoOfColumns(Context context, float columnWidthDp) { // For example columnWidthdp=180
+    public static int calculateNoOfColumns(Context context, float columnWidthDp) { // For example columnWidth dp=180
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         float screenWidthDp = displayMetrics.widthPixels / displayMetrics.density;
         int noOfColumns = (int) (screenWidthDp / columnWidthDp + 0.5); // +0.5 for correct rounding to int.

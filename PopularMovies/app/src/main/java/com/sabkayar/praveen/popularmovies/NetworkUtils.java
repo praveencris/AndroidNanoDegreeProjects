@@ -4,7 +4,6 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.CountDownTimer;
 import android.util.Log;
 
 import java.io.BufferedReader;
@@ -20,12 +19,12 @@ import java.util.List;
 public final class NetworkUtils {
     private static final String BASE_URL_MOVIE_API = "http://api.themoviedb.org/3/movie/";
     private static final String API_KEY_PARAM = "api_key";
-    private static final String API_KEY_VALUE = "";
+    private static final String API_KEY_VALUE = BuildConfig.API_KEY_VALUE;
     private static final String LOG_TAG = NetworkUtils.class.getSimpleName();
     private static final String IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w185";
 
     public static List<Movie> getMovieDetails(URL url, final FetchMovieDataTask fetchMovieDataTask) {
-        HttpURLConnection urlConnection = null;
+        HttpURLConnection urlConnection;
         List<Movie> moviesDetails = null;
         try {
             fetchMovieDataTask.doProgress(10);

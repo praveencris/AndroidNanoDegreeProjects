@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
-import java.text.ParseException;
 
 public class DetailActivity extends AppCompatActivity {
     public static final String MOVIE_EXTRA = "MOVIE_EXTRA";
@@ -36,7 +35,7 @@ public class DetailActivity extends AppCompatActivity {
         mRatingTextView = findViewById(R.id.tv_rating);
         mOverViewTextView = findViewById(R.id.tv_overview);
 
-        Movie movie = (Movie) getIntent().getParcelableExtra(MOVIE_EXTRA);
+        Movie movie = getIntent().getParcelableExtra(MOVIE_EXTRA);
 
 
         mTitleTextView.setText(movie.getTitle());
