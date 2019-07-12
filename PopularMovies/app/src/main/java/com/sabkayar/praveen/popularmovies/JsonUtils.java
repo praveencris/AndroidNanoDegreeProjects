@@ -13,6 +13,7 @@ final class JsonUtils {
     private static final String POSTER_PATH = "poster_path";
     private static final String AVERAGE_VOTE = "vote_average";
     private static final String MOVIE_OVERVIEW = "overview";
+    private static final String MOVIE_ID = "id";
 
     public static List<Movie> getParsedListFromJson(String jsonString) {
         List<Movie> moviesDetails = new ArrayList<>();
@@ -27,6 +28,7 @@ final class JsonUtils {
                 movie.setMoviePosterRelativePath(jsonObject.optString(POSTER_PATH));
                 movie.setAverageVoting(jsonObject.optString(AVERAGE_VOTE));
                 movie.setMovieOverView(jsonObject.optString(MOVIE_OVERVIEW));
+                movie.setId(jsonObject.optString(MOVIE_ID));
                 moviesDetails.add(movie);
             }
         } catch (JSONException e) {
@@ -36,4 +38,32 @@ final class JsonUtils {
     }
 
 
+    private static final String VIDEO_ID = "id";
+    private static final String VIDEO_KEY = "key";
+    private static final String VIDEO_NAME = "name";
+    private static final String VIDEO_SITE = "site";
+    private static final String VIDEO_RESOLUTION = "size";
+    private static final String VIDEO_TYPE = "type";
+
+    public static List<TrailerDetails> getParsedListFromJsonForTrailers(String jsonString) {
+        List<TrailerDetails> trailerDetails = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(jsonString);
+            JSONArray jsonArray = jsonObject.optJSONArray("results");
+            for (int i = 0; i < jsonArray.length(); i++) {
+                TrailerDetails trailerDetail = new TrailerDetails();
+                jsonObject = jsonArray.optJSONObject(i);
+                trailerDetail.setId(jsonObject.optString(VIDEO_ID));
+                trailerDetail.setKey(jsonObject.optString(VIDEO_KEY));
+                trailerDetail.setName(jsonObject.optString(VIDEO_NAME));
+                trailerDetail.setSite(jsonObject.optString(VIDEO_SITE));
+                trailerDetail.setResolution(jsonObject.optString(VIDEO_RESOLUTION));
+                trailerDetail.setVideoType(jsonObject.optString(VIDEO_TYPE));
+                trailerDetails.add(trailerDetail);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return trailerDetails;
+    }
 }

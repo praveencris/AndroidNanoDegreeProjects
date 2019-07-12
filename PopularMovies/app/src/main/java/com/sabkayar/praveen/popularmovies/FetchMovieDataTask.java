@@ -22,7 +22,6 @@ public class FetchMovieDataTask extends AsyncTask<URL, Integer, List<Movie>> {
         mAdapter = new WeakReference<>(adapter);
         mConstraintLayoutWeakReference = new WeakReference<>(constraintLayout);
         mProgressBar=new WeakReference<>(progressBar);
-
     }
 
     @Override

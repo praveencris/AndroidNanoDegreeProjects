@@ -1,9 +1,11 @@
 package com.sabkayar.praveen.popularmovies;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,13 +18,16 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.sabkayar.praveen.popularmovies.Interfaces.TrailerDataResponse;
 import com.sabkayar.praveen.popularmovies.databinding.ActivityMainBinding;
 
 import java.net.URL;
+import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements MovieAdapter.OnListItemClickListener {
+public class MainActivity extends AppCompatActivity implements MovieAdapter.OnListItemClickListener{
     private static final String SORT_BY_POPULARITY = "popular";
     private static final String SORT_BY_RATING = "top_rated";
+    private static final String LOG_TAG = MainActivity.class.getSimpleName();
     private MovieAdapter mAdapter;
     private FetchMovieDataTask mFetchMovieDataTask;
     private URL mURL;

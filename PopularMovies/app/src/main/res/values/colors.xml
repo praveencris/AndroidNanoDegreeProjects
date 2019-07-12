@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#b2fab4</color>
-    <color name="colorPrimaryDark">#519657
-    </color>
+    <color name="colorPrimaryDark">#519657</color>
+    <color name="colorAccent">#03DAC4</color>
+    
+    <color name="colorFavoriteBackground">@color/colorAccent</color>
+    <color name="colorFavoriteText">#707070</color>
 </resources>

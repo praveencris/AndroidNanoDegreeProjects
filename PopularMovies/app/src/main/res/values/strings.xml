@@ -7,4 +7,8 @@
     <string name="action_most_popular">MOST POPULAR</string>
     <string name="action_highest_rated">HIGHEST RATED</string>
     <string name="sort_by">Sort by</string>
+    <string name="mark_as_favorite">MARK AS FAVORITE</string>
+    <string name="reviews"><![CDATA[Reviews>>>]]></string>
+    <string name="content_desc_play_image">Button for opening movie trailer video</string>
+    <string name="trailers">Trailers:</string>
 </resources>
