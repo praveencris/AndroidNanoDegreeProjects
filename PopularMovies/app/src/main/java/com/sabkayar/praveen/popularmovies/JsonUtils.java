@@ -1,5 +1,7 @@
 package com.sabkayar.praveen.popularmovies;
 
+import com.sabkayar.praveen.popularmovies.database.Movie;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

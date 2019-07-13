@@ -10,6 +10,7 @@ import android.widget.ProgressBar;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.sabkayar.praveen.popularmovies.database.Movie;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

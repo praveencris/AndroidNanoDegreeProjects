@@ -3,18 +3,18 @@ package com.sabkayar.praveen.popularmovies;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import com.sabkayar.praveen.popularmovies.Interfaces.TrailerDataResponse;
-
 import java.net.URL;
 import java.util.List;
 
 public class FetchTrailerDataTask extends AsyncTask<URL, Void, List<TrailerDetails>> {
     private Context mContext;
-    private TrailerDataResponse mTrailerDataResponse;
-
+    private TrailerResponse mTrailerDataResponse;
+    public interface TrailerResponse{
+        void trailerResponse(List<TrailerDetails> trailerDetails);
+    }
     FetchTrailerDataTask(Context context) {
         mContext = context;
-        mTrailerDataResponse = (TrailerDataResponse) context;
+        mTrailerDataResponse = (TrailerResponse) context;
     }
 
     @Override

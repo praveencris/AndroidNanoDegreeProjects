@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.sabkayar.praveen.popularmovies.database.Movie;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;

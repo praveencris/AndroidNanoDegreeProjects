@@ -1,18 +1,44 @@
-package com.sabkayar.praveen.popularmovies;
+package com.sabkayar.praveen.popularmovies.database;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
+import java.util.Objects;
+
+@Entity(tableName = "movie_details")
 public class Movie implements Parcelable {
+    @ColumnInfo(name = "movie_id")
+    @PrimaryKey
+    @NonNull
     private String mId;
+    @ColumnInfo(name = "original_title")
     private String mTitle;
+    @ColumnInfo(name = "release_date")
     private String mReleaseDate;
+    @ColumnInfo(name = "poster_path")
     private String mMoviePosterRelativePath;
+    @ColumnInfo(name = "vote_average")
     private String mAverageVoting;
+    @ColumnInfo(name = "overview")
     private String mMovieOverView;
 
+    @Ignore
     public Movie() {
+    }
 
+   public Movie(@NonNull String id, String title, String releaseDate, String moviePosterRelativePath, String averageVoting, String movieOverView) {
+        mId = id;
+        mTitle = title;
+        mReleaseDate = releaseDate;
+        mMoviePosterRelativePath = moviePosterRelativePath;
+        mAverageVoting = averageVoting;
+        mMovieOverView = movieOverView;
     }
 
     public String getTitle() {
@@ -23,11 +49,12 @@ public class Movie implements Parcelable {
         mTitle = title;
     }
 
+    @NonNull
     public String getId() {
         return mId;
     }
 
-    public void setId(String id) {
+    public void setId(@NonNull String id) {
         mId = id;
     }
 
@@ -89,11 +116,18 @@ public class Movie implements Parcelable {
     };
 
     private Movie(Parcel in) {
-        mId = in.readString();
+        mId = Objects.requireNonNull(in.readString());
         mTitle = in.readString();
         mReleaseDate = in.readString();
         mMoviePosterRelativePath = in.readString();
         mAverageVoting = in.readString();
         mMovieOverView = in.readString();
+    }
+
+
+    @NonNull
+    @Override
+    public String toString() {
+        return getId() + ":" + getTitle() + ":" + getReleaseDate() + ":" + getMoviePosterRelativePath() + ":" + getMovieOverView() + "\n";
     }
 }

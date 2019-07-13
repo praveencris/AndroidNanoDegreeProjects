@@ -1,30 +1,26 @@
 package com.sabkayar.praveen.popularmovies;
 
-import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.sabkayar.praveen.popularmovies.Interfaces.TrailerDataResponse;
+import com.sabkayar.praveen.popularmovies.database.AppDatabase;
+import com.sabkayar.praveen.popularmovies.database.Movie;
 import com.sabkayar.praveen.popularmovies.databinding.ActivityMainBinding;
 
 import java.net.URL;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements MovieAdapter.OnListItemClickListener{
+public class MainActivity extends AppCompatActivity implements MovieAdapter.OnListItemClickListener, FetchMovieDataTask.MovieResponse {
     private static final String SORT_BY_POPULARITY = "popular";
     private static final String SORT_BY_RATING = "top_rated";
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
@@ -32,12 +28,14 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnLi
     private FetchMovieDataTask mFetchMovieDataTask;
     private URL mURL;
 
+    private AppDatabase mDb;
     ActivityMainBinding mBinding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mBinding= DataBindingUtil.setContentView(this,R.layout.activity_main);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         int numOfColumns = Utils.calculateNoOfColumns(this, 100);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, numOfColumns);
@@ -51,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnLi
         mBinding.recyclerView.setAdapter(mAdapter);
 
         makeServerCall(SORT_BY_POPULARITY);
+        mDb = AppDatabase.getInstance(getApplicationContext());
 
     }
 
@@ -106,6 +105,10 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnLi
             case R.id.action_highest_rated:
                 makeServerCall(SORT_BY_RATING);
                 break;
+            case R.id.action_favourite:
+                Intent intent = new Intent(this, FavouriteActivity.class);
+                startActivity(intent);
+                break;
             default:
                 break;
         }
@@ -115,13 +118,31 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnLi
 
     private void makeServerCall(String sortBy) {
         mURL = NetworkUtils.createUrl(sortBy);
-        mFetchMovieDataTask = new FetchMovieDataTask(mAdapter, mBinding.clProgressLayout, mBinding.determinateBar);
+        mFetchMovieDataTask = new FetchMovieDataTask(this);
         if (NetworkUtils.isConnected(this)) {
             mBinding.clNoInternet.setVisibility(View.GONE);
             startCountDownForCheckingInternet();
             mFetchMovieDataTask.execute(mURL);
         } else {
             mBinding.clNoInternet.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onPreExecute() {
+        mBinding.clProgressLayout.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void publishProgress(int progress) {
+        mBinding.determinateBar.setProgress(progress);
+    }
+
+    @Override
+    public void movieResponse(List<Movie> movieDetails) {
+        mBinding.clProgressLayout.setVisibility(View.GONE);
+        if (movieDetails != null) {
+            mAdapter.setMovieDetails(movieDetails);
         }
     }
 }

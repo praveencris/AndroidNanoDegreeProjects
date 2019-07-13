@@ -11,4 +11,8 @@
     <string name="reviews"><![CDATA[Reviews>>>]]></string>
     <string name="content_desc_play_image">Button for opening movie trailer video</string>
     <string name="trailers">Trailers:</string>
+    <string name="favourite">FAVOURITE</string>
+    <string name="favourite_movies">Favourite Movies</string>
+    <string name="movie_detail">Movie Details</string>
+
 </resources>
