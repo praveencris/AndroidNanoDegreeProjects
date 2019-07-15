@@ -1,4 +1,4 @@
-package com.sabkayar.praveen.popularmovies;
+package com.sabkayar.praveen.popularmovies.utils;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -8,7 +8,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
+import com.sabkayar.praveen.popularmovies.BuildConfig;
 import com.sabkayar.praveen.popularmovies.database.Movie;
+import com.sabkayar.praveen.popularmovies.ui.detail.trailer.TrailerDetail;
+import com.sabkayar.praveen.popularmovies.ui.reviews.Review;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -29,21 +32,18 @@ public final class NetworkUtils {
     private static final String LANGUAGE_PARAM = "language";
     private static final String LANGUAGE_VALUE = "en-US";
 
-    public static List<Movie> getMovieDetails(URL url, final FetchMovieDataTask fetchMovieDataTask) {
+    public static List<Movie> getMovieDetails(URL url) {
         HttpURLConnection urlConnection;
         List<Movie> moviesDetails = null;
         try {
-            fetchMovieDataTask.doProgress(10);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
             urlConnection.setConnectTimeout(10000);
             urlConnection.setReadTimeout(15000);
             urlConnection.connect();
-            fetchMovieDataTask.doProgress(50);
             int responseCode = urlConnection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 String jsonString = getResponseString(urlConnection.getInputStream());
-                fetchMovieDataTask.doProgress(75);
                 moviesDetails = JsonUtils.getParsedListFromJson(jsonString);
             } else {
                 Log.e(LOG_TAG, "Error occurred with response code " + responseCode);
@@ -51,13 +51,12 @@ public final class NetworkUtils {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        fetchMovieDataTask.doProgress(100);
         return moviesDetails;
     }
 
-    public static List<TrailerDetails> getMovieTrailers(URL url) {
+    public static List<TrailerDetail> getMovieTrailers(URL url) {
         HttpURLConnection urlConnection;
-        List<TrailerDetails> trailerDetails = null;
+        List<TrailerDetail> trailerDetails = null;
         try {
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
@@ -75,6 +74,28 @@ public final class NetworkUtils {
             e.printStackTrace();
         }
         return trailerDetails;
+    }
+
+    public static List<Review> getMovieReviews(URL url) {
+        HttpURLConnection urlConnection;
+        List<Review> reviewList = null;
+        try {
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestMethod("GET");
+            urlConnection.setConnectTimeout(10000);
+            urlConnection.setReadTimeout(15000);
+            urlConnection.connect();
+            int responseCode = urlConnection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                String jsonString = getResponseString(urlConnection.getInputStream());
+                reviewList = JsonUtils.getParsedListFromJsonForReviews(jsonString);
+            } else {
+                Log.e(LOG_TAG, "Error occurred with response code " + responseCode);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return reviewList;
     }
 
     private static String getResponseString(InputStream inputStream) throws IOException {
@@ -95,7 +116,6 @@ public final class NetworkUtils {
         }
         Uri uri = Uri.parse(BASE_URL_MOVIE_API + sortBy).buildUpon()
                 .appendQueryParameter(API_KEY_PARAM, API_KEY_VALUE)
-                .appendQueryParameter(LANGUAGE_PARAM, LANGUAGE_VALUE)
                 .build();
         URL url = null;
         try {
@@ -112,7 +132,21 @@ public final class NetworkUtils {
         }
         Uri uri = Uri.parse(BASE_URL_MOVIE_API + movieId + "/videos").buildUpon()
                 .appendQueryParameter(API_KEY_PARAM, API_KEY_VALUE)
-                .appendQueryParameter(LANGUAGE_PARAM, LANGUAGE_VALUE)
+                .build();
+        URL url = null;
+        try {
+            url = new URL(uri.toString());
+        } catch (MalformedURLException e) {
+            Log.e(LOG_TAG, "Error occurred in building url");
+        }
+        return url;
+    }
+    public static URL createUrlForReviews(String movieId) {
+        if (movieId == null) {
+            return null;
+        }
+        Uri uri = Uri.parse(BASE_URL_MOVIE_API + movieId + "/reviews").buildUpon()
+                .appendQueryParameter(API_KEY_PARAM, API_KEY_VALUE)
                 .build();
         URL url = null;
         try {
@@ -123,7 +157,7 @@ public final class NetworkUtils {
         return url;
     }
 
-    static String getImageAbsolutePath(String relativePath) {
+    public static String getImageAbsolutePath(String relativePath) {
         return IMAGE_BASE_URL + relativePath;
     }
 

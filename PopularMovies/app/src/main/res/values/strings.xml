@@ -14,5 +14,9 @@
     <string name="favourite">FAVOURITE</string>
     <string name="favourite_movies">Favourite Movies</string>
     <string name="movie_detail">Movie Details</string>
+    <string name="no_data_available">No data available</string>
+    <string name="ohh_nothing_to_show">Ohh! Nothing to show</string>
+    <string name="reviewed_it">reviewed it</string>
+    <string name="review_label">Reviews</string>
 
 </resources>

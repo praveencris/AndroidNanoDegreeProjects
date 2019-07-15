@@ -1,4 +1,4 @@
-package com.sabkayar.praveen.popularmovies;
+package com.sabkayar.praveen.popularmovies.ui.detail.trailer;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,21 +9,23 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.sabkayar.praveen.popularmovies.R;
+
 import java.util.List;
 
 public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerViewHolder> {
-    private List<TrailerDetails> mTrailerDetails = null;
+    private List<TrailerDetail> mTrailerDetails = null;
     private OnItemClickListener mOnItemClickListener;
 
     public interface OnItemClickListener {
-        void onItemClick(TrailerDetails trailerDetails);
+        void onItemClick(TrailerDetail trailerDetails);
     }
 
-    TrailerAdapter(OnItemClickListener onItemClickListener) {
+    public TrailerAdapter(OnItemClickListener onItemClickListener) {
         mOnItemClickListener = onItemClickListener;
     }
 
-    public void setTrailerDetails(List<TrailerDetails> trailerDetails) {
+    public void setTrailerDetails(List<TrailerDetail> trailerDetails) {
         mTrailerDetails = trailerDetails;
         notifyDataSetChanged();
     }
@@ -39,8 +41,8 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerV
 
     @Override
     public void onBindViewHolder(@NonNull TrailerViewHolder holder, int position) {
-        TrailerDetails trailerDetails = mTrailerDetails.get(position);
-        holder.bindData(trailerDetails);
+        TrailerDetail trailerDetail = mTrailerDetails.get(position);
+        holder.bindData(trailerDetail);
     }
 
     @Override
@@ -58,11 +60,11 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerV
         public TrailerViewHolder(@NonNull View itemView) {
             super(itemView);
             mTrailerTextView = itemView.findViewById(R.id.textViewTrailer);
-            mVideoTypeTextView=itemView.findViewById(R.id.textViewVideoType);
+            mVideoTypeTextView = itemView.findViewById(R.id.textViewVideoType);
             itemView.setOnClickListener(this);
         }
 
-        public void bindData(TrailerDetails trailerDetail) {
+        public void bindData(TrailerDetail trailerDetail) {
             mTrailerTextView.setText(trailerDetail.getName());
             mVideoTypeTextView.setText(trailerDetail.getVideoType());
         }

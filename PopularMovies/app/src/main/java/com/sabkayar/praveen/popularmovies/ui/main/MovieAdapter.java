@@ -1,4 +1,4 @@
-package com.sabkayar.praveen.popularmovies;
+package com.sabkayar.praveen.popularmovies.ui.main;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,12 +10,14 @@ import android.widget.ProgressBar;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.sabkayar.praveen.popularmovies.utils.NetworkUtils;
+import com.sabkayar.praveen.popularmovies.R;
 import com.sabkayar.praveen.popularmovies.database.Movie;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
+public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 
     private List<Movie> mMovieDetails = null;
     private OnListItemClickListener mOnListItemClickListener;
@@ -27,6 +29,10 @@ class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
     public void setMovieDetails(List<Movie> movieDetails) {
         mMovieDetails = movieDetails;
         notifyDataSetChanged();
+    }
+
+    public List<Movie> getMovieDetails() {
+        return mMovieDetails;
     }
 
     public MovieAdapter(OnListItemClickListener listItemClickListener) {

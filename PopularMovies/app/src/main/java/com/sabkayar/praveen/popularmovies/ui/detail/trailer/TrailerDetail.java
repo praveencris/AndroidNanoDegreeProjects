@@ -1,9 +1,9 @@
-package com.sabkayar.praveen.popularmovies;
+package com.sabkayar.praveen.popularmovies.ui.detail.trailer;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class TrailerDetails implements Parcelable {
+public class TrailerDetail implements Parcelable {
     private String id;
     private String key;
     private String name;
@@ -19,12 +19,12 @@ public class TrailerDetails implements Parcelable {
         this.key = key;
     }
 
-    public static Creator<TrailerDetails> getCREATOR() {
+    public static Creator<TrailerDetail> getCREATOR() {
         return CREATOR;
     }
 
 
-    protected TrailerDetails(Parcel in) {
+    protected TrailerDetail(Parcel in) {
         id = in.readString();
         key = in.readString();
         name = in.readString();
@@ -33,7 +33,7 @@ public class TrailerDetails implements Parcelable {
         videoType = in.readString();
     }
 
-    public TrailerDetails() {
+    public TrailerDetail() {
 
     }
 
@@ -52,15 +52,15 @@ public class TrailerDetails implements Parcelable {
         return 0;
     }
 
-    public static final Creator<TrailerDetails> CREATOR = new Creator<TrailerDetails>() {
+    public static final Creator<TrailerDetail> CREATOR = new Creator<TrailerDetail>() {
         @Override
-        public TrailerDetails createFromParcel(Parcel in) {
-            return new TrailerDetails(in);
+        public TrailerDetail createFromParcel(Parcel in) {
+            return new TrailerDetail(in);
         }
 
         @Override
-        public TrailerDetails[] newArray(int size) {
-            return new TrailerDetails[size];
+        public TrailerDetail[] newArray(int size) {
+            return new TrailerDetail[size];
         }
     };
 

@@ -1,4 +1,4 @@
-package com.sabkayar.praveen.popularmovies;
+package com.sabkayar.praveen.popularmovies.utils;
 
 import android.content.Context;
 import android.util.DisplayMetrics;

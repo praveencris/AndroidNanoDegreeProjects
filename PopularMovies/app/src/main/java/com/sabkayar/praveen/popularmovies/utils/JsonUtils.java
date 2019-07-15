@@ -1,6 +1,8 @@
-package com.sabkayar.praveen.popularmovies;
+package com.sabkayar.praveen.popularmovies.utils;
 
 import com.sabkayar.praveen.popularmovies.database.Movie;
+import com.sabkayar.praveen.popularmovies.ui.detail.trailer.TrailerDetail;
+import com.sabkayar.praveen.popularmovies.ui.reviews.Review;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,13 +49,13 @@ final class JsonUtils {
     private static final String VIDEO_RESOLUTION = "size";
     private static final String VIDEO_TYPE = "type";
 
-    public static List<TrailerDetails> getParsedListFromJsonForTrailers(String jsonString) {
-        List<TrailerDetails> trailerDetails = new ArrayList<>();
+    public static List<TrailerDetail> getParsedListFromJsonForTrailers(String jsonString) {
+        List<TrailerDetail> trailerDetails = new ArrayList<>();
         try {
             JSONObject jsonObject = new JSONObject(jsonString);
             JSONArray jsonArray = jsonObject.optJSONArray("results");
             for (int i = 0; i < jsonArray.length(); i++) {
-                TrailerDetails trailerDetail = new TrailerDetails();
+                TrailerDetail trailerDetail = new TrailerDetail();
                 jsonObject = jsonArray.optJSONObject(i);
                 trailerDetail.setId(jsonObject.optString(VIDEO_ID));
                 trailerDetail.setKey(jsonObject.optString(VIDEO_KEY));
@@ -67,5 +69,29 @@ final class JsonUtils {
             e.printStackTrace();
         }
         return trailerDetails;
+    }
+
+
+    private static final String REVIEW_AUTHOR = "author";
+    private static final String REVIEW_CONTENT = "content";
+    private static final String REVIEW_URL = "url";
+
+    public static List<Review> getParsedListFromJsonForReviews(String jsonString) {
+        List<Review> reviewList = new ArrayList<>();
+        try {
+            JSONObject jsonObject = new JSONObject(jsonString);
+            JSONArray jsonArray = jsonObject.optJSONArray("results");
+            for (int i = 0; i < jsonArray.length(); i++) {
+                Review review = new Review();
+                jsonObject = jsonArray.optJSONObject(i);
+                review.setAuthor(jsonObject.optString(REVIEW_AUTHOR));
+                review.setContent(jsonObject.optString(REVIEW_CONTENT));
+                review.setUrl(jsonObject.optString(REVIEW_URL));
+                reviewList.add(review);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return reviewList;
     }
 }

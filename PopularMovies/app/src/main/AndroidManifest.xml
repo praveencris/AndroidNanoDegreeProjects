@@ -19,7 +19,7 @@
         <!--  android:usesCleartextTraffic="true" required if min skd >=23-->
 
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.main.MainActivity"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,26 +28,37 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DetailActivity"
+            android:name=".ui.detail.DetailActivity"
             android:label="@string/movie_detail"
-            android:parentActivityName=".MainActivity"
+            android:launchMode="singleTask"
+            android:parentActivityName=".ui.main.MainActivity"
             tools:ignore="UnusedAttribute">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".ui.main.MainActivity" />
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".FavouriteActivity"
+            android:name=".ui.favourite.FavouriteActivity"
             android:label="@string/favourite_movies"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".ui.main.MainActivity"
             tools:ignore="UnusedAttribute">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".ui.main.MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".ui.reviews.ReviewActivity"
+            android:label="@string/review_label"
+            android:parentActivityName=".ui.detail.DetailActivity"
+            tools:ignore="UnusedAttribute">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.detail.DetailActivity" />
         </activity>
     </application>
 
