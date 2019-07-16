@@ -18,5 +18,8 @@
     <string name="ohh_nothing_to_show">Ohh! Nothing to show</string>
     <string name="reviewed_it">reviewed it</string>
     <string name="review_label">Reviews</string>
+    <string name="mark_as_unfavourite">MARK AS UN FAVOURITE</string>
+    <string name="marked_as_favourite">Marked as favorite</string>
+    <string name="marked_as_unfavourite">Marked as un favourite</string>
 
 </resources>

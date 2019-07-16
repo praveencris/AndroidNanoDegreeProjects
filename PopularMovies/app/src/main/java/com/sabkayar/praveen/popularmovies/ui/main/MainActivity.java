@@ -55,19 +55,23 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnLi
 
     private void setupViewModel() {
         if (NetworkUtils.isConnected(this)) {
-            mBinding.clNoInternet.setVisibility(View.GONE);
+            setupOnConnected(true);
             MainViewModelFactory mainViewModelFactory = new MainViewModelFactory(SORT_BY_POPULARITY);
             mMainViewModel = ViewModelProviders.of(this, mainViewModelFactory).get(MainViewModel.class);
             mMainViewModel.getData().observe(this, new Observer<List<Movie>>() {
                 @Override
                 public void onChanged(List<Movie> movies) {
-                    if (movies != null) {
+                    mBinding.clProgressLayout.setVisibility(View.GONE);
+                    if (movies.isEmpty()) {
+                        mBinding.clNoData.setVisibility(View.VISIBLE);
+                    } else {
+                        mBinding.clNoData.setVisibility(View.GONE);
                         mAdapter.setMovieDetails(movies);
                     }
                 }
             });
         } else {
-            mBinding.clNoInternet.setVisibility(View.VISIBLE);
+            setupOnConnected(false);
         }
     }
 
@@ -87,12 +91,13 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnLi
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
+
         switch (itemId) {
             case R.id.action_most_popular:
-                mMainViewModel.setData(SORT_BY_POPULARITY);
+                setSortBy(SORT_BY_POPULARITY);
                 break;
             case R.id.action_highest_rated:
-                mMainViewModel.setData(SORT_BY_RATING);
+                setSortBy(SORT_BY_RATING);
                 break;
             case R.id.action_favourite:
                 Intent intent = new Intent(this, FavouriteActivity.class);
@@ -102,6 +107,24 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.OnLi
                 break;
         }
         return true;
+    }
+
+    private void setSortBy(String sortBy) {
+        if (NetworkUtils.isConnected(this)) {
+            setupOnConnected(true);
+            mMainViewModel.setData(sortBy);
+        } else {
+            setupOnConnected(false);
+        }
+    }
+
+    private void setupOnConnected(boolean connected) {
+        if (connected) {
+            mBinding.clProgressLayout.setVisibility(View.VISIBLE);
+            mBinding.clNoInternet.setVisibility(View.GONE);
+        } else {
+            mBinding.clNoInternet.setVisibility(View.VISIBLE);
+        }
     }
 
 

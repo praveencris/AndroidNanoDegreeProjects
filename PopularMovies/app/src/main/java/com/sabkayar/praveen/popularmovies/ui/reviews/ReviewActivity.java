@@ -3,7 +3,7 @@ package com.sabkayar.praveen.popularmovies.ui.reviews;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.widget.Toast;
+import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.sabkayar.praveen.popularmovies.R;
 import com.sabkayar.praveen.popularmovies.databinding.ActivityReviewBinding;
+import com.sabkayar.praveen.popularmovies.utils.NetworkUtils;
 
 import java.util.List;
 
@@ -37,14 +38,27 @@ public class ReviewActivity extends AppCompatActivity implements ReviewAdapter.O
     }
 
     private void setupReviewViewModel(String movieId) {
-        ReviewViewModelFactory reviewViewModelFactory = new ReviewViewModelFactory(movieId);
-        ReviewViewModel reviewViewModel = ViewModelProviders.of(this, reviewViewModelFactory).get(ReviewViewModel.class);
-        reviewViewModel.getData().observe(this, new Observer<List<Review>>() {
-            @Override
-            public void onChanged(List<Review> reviews) {
-                mReviewAdapter.setReviews(reviews);
-            }
-        });
+        if (NetworkUtils.isConnected(this)) {
+            setupOnConnected(true);
+            ReviewViewModelFactory reviewViewModelFactory = new ReviewViewModelFactory(movieId);
+            ReviewViewModel reviewViewModel = ViewModelProviders.of(this, reviewViewModelFactory).get(ReviewViewModel.class);
+            reviewViewModel.getData().observe(this, new Observer<List<Review>>() {
+                @Override
+                public void onChanged(List<Review> reviews) {
+                    mReviewBinding.clProgressLayout.setVisibility(View.GONE);
+                    if (reviews.isEmpty()) {
+                        mReviewBinding.clNoData.setVisibility(View.VISIBLE);
+                    } else {
+                        mReviewBinding.clNoData.setVisibility(View.GONE);
+                        mReviewAdapter.setReviews(reviews);
+                    }
+
+                }
+            });
+        } else {
+            setupOnConnected(false);
+        }
+
     }
 
     private void setupReviewRecyclerView() {
@@ -59,4 +73,14 @@ public class ReviewActivity extends AppCompatActivity implements ReviewAdapter.O
         Intent implicit = new Intent(Intent.ACTION_VIEW, Uri.parse(review.getUrl()));
         startActivity(implicit);
     }
+
+    private void setupOnConnected(boolean connected) {
+        if (connected) {
+            mReviewBinding.clProgressLayout.setVisibility(View.VISIBLE);
+            mReviewBinding.clNoInternet.setVisibility(View.GONE);
+        } else {
+            mReviewBinding.clNoInternet.setVisibility(View.VISIBLE);
+        }
+    }
+
 }

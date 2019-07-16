@@ -90,20 +90,6 @@
                 tools:text="TextView" />
 
             <TextView
-                android:id="@+id/textViewFavorite"
-                android:layout_width="96dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:background="@color/colorFavoriteBackground"
-                android:fontFamily="sans-serif-medium"
-                android:gravity="center"
-                android:padding="4dp"
-                android:text="@string/mark_as_favorite"
-                android:textColor="@color/colorFavoriteText"
-                app:layout_constraintStart_toStartOf="@+id/tv_rating"
-                app:layout_constraintTop_toBottomOf="@+id/tv_rating" />
-
-            <TextView
                 android:id="@+id/textViewReview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -132,7 +118,7 @@
 
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textViewFavorite"
+                app:layout_constraintStart_toEndOf="@+id/tb_favourite"
                 app:layout_constraintTop_toTopOf="@+id/imv_poster"
                 tools:ignore="UnusedAttribute"
                 tools:text="TextView" />
@@ -145,7 +131,20 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textViewReview" />
-
+            <ToggleButton
+                android:id="@+id/tb_favourite"
+                android:layout_width="96dp"
+                android:layout_marginTop="8dp"
+                android:layout_height="wrap_content"
+                android:padding="4dp"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:background="@drawable/shape_rectangle_unfavourite"
+                android:textOff="@string/mark_as_favorite"
+                android:textOn="@string/mark_as_unfavourite"
+                app:layout_constraintStart_toStartOf="@+id/tv_rating"
+                app:layout_constraintTop_toBottomOf="@+id/tv_rating" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

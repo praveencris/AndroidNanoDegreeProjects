@@ -1,4 +1,4 @@
-package com.sabkayar.praveen.popularmovies.ui.detail.trailer;
+package com.sabkayar.praveen.popularmovies.ui.detail;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,7 +13,7 @@ import com.sabkayar.praveen.popularmovies.R;
 
 import java.util.List;
 
-public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerViewHolder> {
+public class DetailTrailerAdapter extends RecyclerView.Adapter<DetailTrailerAdapter.TrailerViewHolder> {
     private List<TrailerDetail> mTrailerDetails = null;
     private OnItemClickListener mOnItemClickListener;
 
@@ -21,7 +21,7 @@ public class TrailerAdapter extends RecyclerView.Adapter<TrailerAdapter.TrailerV
         void onItemClick(TrailerDetail trailerDetails);
     }
 
-    public TrailerAdapter(OnItemClickListener onItemClickListener) {
+    public DetailTrailerAdapter(OnItemClickListener onItemClickListener) {
         mOnItemClickListener = onItemClickListener;
     }
 

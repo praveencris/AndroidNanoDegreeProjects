@@ -1,4 +1,4 @@
-package com.sabkayar.praveen.popularmovies.ui.detail.trailer;
+package com.sabkayar.praveen.popularmovies.ui.detail;
 
 import android.os.Parcel;
 import android.os.Parcelable;

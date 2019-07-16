@@ -1,7 +1,7 @@
 package com.sabkayar.praveen.popularmovies.utils;
 
 import com.sabkayar.praveen.popularmovies.database.Movie;
-import com.sabkayar.praveen.popularmovies.ui.detail.trailer.TrailerDetail;
+import com.sabkayar.praveen.popularmovies.ui.detail.TrailerDetail;
 import com.sabkayar.praveen.popularmovies.ui.reviews.Review;
 
 import org.json.JSONArray;

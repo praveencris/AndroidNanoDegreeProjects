@@ -10,7 +10,7 @@ import android.widget.ProgressBar;
 
 import com.sabkayar.praveen.popularmovies.BuildConfig;
 import com.sabkayar.praveen.popularmovies.database.Movie;
-import com.sabkayar.praveen.popularmovies.ui.detail.trailer.TrailerDetail;
+import com.sabkayar.praveen.popularmovies.ui.detail.TrailerDetail;
 import com.sabkayar.praveen.popularmovies.ui.reviews.Review;
 
 import java.io.BufferedReader;
